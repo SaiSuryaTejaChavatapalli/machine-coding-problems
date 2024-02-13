@@ -12,10 +12,11 @@ export type UserType = {
 const FetchUsers = () => {
   const [users, setUsers] = useState<UserType[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<UserType[]>([]);
+
   const [errorMsg, setErrorMsg] = useState("");
   const [query, setQuery] = useState("");
-  console.log(query);
-
+  console.log("Query", query);
+  let timerId: number;
   const fetchUsers = async () => {
     try {
       const res = await fetch("https://jsonplaceholder.typicode.com/users");
@@ -43,19 +44,27 @@ const FetchUsers = () => {
     const filteredData = users.filter((user) =>
       user.name.toLowerCase().includes(query.toLowerCase())
     );
-    console.log("filter users called", filteredData);
 
     setFilteredUsers(filteredData);
   };
+
   useEffect(() => {
-    console.log("FilterUsers useeffect called");
     filterUsers();
   }, [query]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (timerId) {
+      clearInterval(timerId);
+    }
+    timerId = setTimeout(() => {
+      setQuery(e.target.value);
+    }, 500);
+  };
 
   return (
     <>
       <h1>{errorMsg ? errorMsg : null}</h1>
-      <input type="text" onChange={(e) => setQuery(e.target.value)} />
+      <input type="text" onChange={handleInputChange} />
       <div className="users-container">
         {filteredUsers.map((user) => (
           <User {...user} key={user.id} />
