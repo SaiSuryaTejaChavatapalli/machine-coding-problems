@@ -1,10 +1,12 @@
 import "./App.css";
-import TicTacToe from "./TicTacToe/TicTacToe";
+import FetchUsers from "./FetchUsers/FetchUsers";
+//import TicTacToe from "./TicTacToe/TicTacToe";
 
 function App() {
   return (
     <>
-      <TicTacToe />
+      {/* <TicTacToe /> */}
+      <FetchUsers />
     </>
   );
 }
