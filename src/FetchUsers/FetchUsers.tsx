@@ -11,7 +11,10 @@ export type UserType = {
 };
 const FetchUsers = () => {
   const [users, setUsers] = useState<UserType[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<UserType[]>([]);
   const [errorMsg, setErrorMsg] = useState("");
+  const [query, setQuery] = useState("");
+  console.log(query);
 
   const fetchUsers = async () => {
     try {
@@ -26,6 +29,7 @@ const FetchUsers = () => {
         };
       });
       setUsers(data);
+      setFilteredUsers(data);
     } catch (error) {
       setErrorMsg("Oops!, Something went wrong!");
     }
@@ -35,12 +39,25 @@ const FetchUsers = () => {
     fetchUsers();
   }, []);
 
+  const filterUsers = () => {
+    const filteredData = users.filter((user) =>
+      user.name.toLowerCase().includes(query.toLowerCase())
+    );
+    console.log("filter users called", filteredData);
+
+    setFilteredUsers(filteredData);
+  };
+  useEffect(() => {
+    console.log("FilterUsers useeffect called");
+    filterUsers();
+  }, [query]);
+
   return (
     <>
       <h1>{errorMsg ? errorMsg : null}</h1>
-
+      <input type="text" onChange={(e) => setQuery(e.target.value)} />
       <div className="users-container">
-        {users.map((user) => (
+        {filteredUsers.map((user) => (
           <User {...user} key={user.id} />
         ))}
       </div>
