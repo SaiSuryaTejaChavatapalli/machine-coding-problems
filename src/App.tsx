@@ -1,5 +1,6 @@
 import "./App.css";
-import DarkAndLightMode from "./DarkAndLightMode/DarkAndLightMode";
+import TodoList from "./TodoList/TodoList";
+// import DarkAndLightMode from "./DarkAndLightMode/DarkAndLightMode";
 //import FetchUsers from "./FetchUsers/FetchUsers";
 // import FetchUsersDebounced from "./FetchUsersDebounced/FetchUsersDebounced";
 //import TicTacToe from "./TicTacToe/TicTacToe";
@@ -10,7 +11,8 @@ function App() {
       {/* <TicTacToe /> */}
       {/* <FetchUsers /> */}
       {/* <FetchUsersDebounced /> */}
-      <DarkAndLightMode />
+      {/* <DarkAndLightMode /> */}
+      <TodoList />
     </>
   );
 }
